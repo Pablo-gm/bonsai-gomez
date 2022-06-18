@@ -1,11 +1,12 @@
 import React from "react";
 import NavBar from "./components/NavBar";
+import ItemListContainer from "./components/ItemListContainer";
 
 const App = () => {
   return (
     <>
       <NavBar/>
-      <h1 className="text-center text-5xl mt-16">Bienvenido</h1>
+      <ItemListContainer greeting="Árboles Bonsai a excelente precio"/>
     </>
   )
 }
