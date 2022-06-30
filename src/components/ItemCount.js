@@ -27,14 +27,7 @@ function ItemCount({ stock, initial,  onAdd }) {
 
     return (
         <>
-        <div className="flex items-center justify-center px-4">
-            <div className="max-w-sm overflow-hidden rounded-xl bg-white shadow-md duration-200 hover:shadow-xl">
-            <div className="p-5">
-                <h5 className="text-gray-900 text-xl leading-tight font-medium mb-2">Hokkaido Verde</h5>
-                <p className="text-medium mb-5 text-gray-700">Arbol de Bonsai de la región de Hokkaido en Japón.</p>
-                <div className="mb-3">
-                    Stock disponible: <span className="text-green-800">{localStock}</span>
-                </div>
+            <div className="">
                 <div className="flex flex-row gap-4">
                     <div className="basis-1/3">
                         <div className="flex w-full items-center justify-between rounded-lg border-solid border-2 border-indigo-60">
@@ -66,8 +59,6 @@ function ItemCount({ stock, initial,  onAdd }) {
                     </div>
                 </div>
             </div>
-            </div>
-        </div>
         </>
     )
 }

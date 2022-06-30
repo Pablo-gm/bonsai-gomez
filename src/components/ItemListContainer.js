@@ -1,17 +1,11 @@
 import React, { useState } from 'react'
-import ItemCount from './ItemCount';
 import ItemList from './ItemList';
+import ItemDetailContainer from './ItemDetailContainer';
 
 function ItemListContainer(props) {
 
-  const [showAlert, setShowAlert] = useState(false);
-
   // Products to show
   const [productItems, setProductItems] = useState([]);
-
-  function handleOnAdd(){
-    setShowAlert(true);
-  }
 
   // Catalog is fixed for now
   const products = [
@@ -77,10 +71,9 @@ function ItemListContainer(props) {
   return (
     <>
       <h1 className="text-center text-5xl mt-16 text-slate-800 mb-5">{props.greeting}</h1>
-      { productItems && <ItemList items={productItems} />} 
-
-      <ItemCount stock={5} initial={1} onAdd={handleOnAdd} />
-      {showAlert &&  <div className=" w-80 mt-3 bg-green-100 rounded-lg py-5 px-6 mb-4 text-base text-green-700 mb-3" role="alert">Se agregó</div>}
+      { productItems && <ItemList items={productItems} />}
+      <h2 className="text-center text-5xl mt-16 text-slate-800 mb-5">Item Detail</h2>
+      <ItemDetailContainer></ItemDetailContainer>
     </>
   )
 }
