@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from "react-router-dom";
 
 function Item({item}) {
   return (
@@ -14,9 +15,9 @@ function Item({item}) {
                     ${item.price}
                 </div>
             </div>
-            <button type="button" class="w-full text-green-700 hover:text-white border-2 border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 text-lg text-medium rounded-md text-center py-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800">
+            <Link  to={`/item/${item.id}`} className="block w-full text-green-700 hover:text-white border-2 border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 text-lg text-medium rounded-md text-center py-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800">
                 Ver producto
-            </button>
+            </Link>
         </div>
     </div>
   )

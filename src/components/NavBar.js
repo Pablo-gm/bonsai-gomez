@@ -7,12 +7,14 @@ import CartWidget from './CartWidget';
 import { Disclosure } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
 
+import { NavLink } from "react-router-dom";
+
 const navigation = [
-  { name: 'Inicio', href: '#', current: true },
-  { name: 'Populares', href: '#', current: false },
-  { name: 'Novedades', href: '#', current: false },
-  { name: 'Herramientas', href: '#', current: false },
-  { name: 'Complementos', href: '#', current: false },
+  { name: 'Inicio', href: '/', current: true },
+  { name: 'Bonsai', href: '/category/bonsai', current: false },
+  { name: 'Novedades', href: '/category/novedades', current: false },
+  { name: 'Herramientas', href: '/category/herramientas', current: false },
+  { name: 'Complementos', href: '/category/complementos', current: false },
 ]
 
 function classNames(...classes) {
@@ -38,31 +40,38 @@ function NavBar() {
               </div>
               <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex-shrink-0 flex items-center">
-                  <img
-                    className="block lg:hidden h-8 w-auto"
-                    src={MobileLogo}
-                    alt="Bonsai Logo Mobile"
-                  />
-                  <img
-                    className="hidden lg:block h-8 w-auto"
-                    src={Logo}
-                    alt="Bonsai Logo"
-                  />
+                  <NavLink
+                      key='logo'
+                      to='/'
+                  >
+                    <img
+                      className="block lg:hidden h-8 w-auto"
+                      src={MobileLogo}
+                      alt="Bonsai Logo Mobile"
+                    />
+                    <img
+                      className="hidden lg:block h-8 w-auto"
+                      src={Logo}
+                      alt="Bonsai Logo"
+                    />
+                  </NavLink>
+
                 </div>
                 <div className="hidden sm:block sm:ml-6">
                   <div className="flex space-x-4">
                     {navigation.map((item) => (
-                      <a
+                      <NavLink
                         key={item.name}
-                        href={item.href}
-                        className={classNames(
-                          item.current ? 'bg-slate-900 text-white' : 'text-slate-600 hover:bg-slate-700 hover:text-white',
-                          'px-3 py-2 rounded-md text-sm font-medium'
-                        )}
-                        aria-current={item.current ? 'page' : undefined}
+                        to={item.href}
+                        className={({ isActive }) =>
+                          classNames(
+                            isActive ? 'bg-slate-900 text-white' : 'text-slate-600 hover:bg-slate-700 hover:text-white',
+                            'px-3 py-2 rounded-md text-sm font-medium'
+                          )
+                        }
                       >
                         {item.name}
-                      </a>
+                      </NavLink>
                     ))}
                   </div>
                 </div>
