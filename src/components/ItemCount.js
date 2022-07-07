@@ -51,7 +51,7 @@ function ItemCount({ stock, initial,  onAdd }) {
                     <div className="basis-2/3">
                         <button 
                         type="button"
-                        onClick={onAdd}
+                        onClick={() => onAdd(count)}
                         className="w-full text-base text-medium rounded-md bg-green-800 py-3 text-white hover:bg-green-600 hover:shadow-md duration-75"
                         >
                             Agregar
