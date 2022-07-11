@@ -78,9 +78,16 @@ function NavBar() {
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 {/* Cart */}
-                <div className="ml-4 flow-root lg:ml-6">
+                <NavLink 
+                  to='/cart'
+                  key='cart'
+                  className={({ isActive }) =>
+                  classNames(
+                    isActive ? 'text-slate-900' : 'ml-4 flow-root lg:ml-6 text-slate-500', 'ml-4 flow-root lg:ml-6'
+                  )
+                }>
                   <CartWidget/>
-                </div>
+                </NavLink>
               </div>
             </div>
           </div>

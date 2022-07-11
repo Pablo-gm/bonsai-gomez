@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react'
 import { useParams, Link } from "react-router-dom";
 
-import NavBar from "../components/NavBar";
 import ItemListContainer from "../components/ItemListContainer";
 
 import * as Constants from "../constants/constants"
@@ -19,7 +18,6 @@ function Category() {
 
   return (
     <>
-      <NavBar/>
       {isCategory && <ItemListContainer greeting={params.id} categoryId={params.id}/> }
       {!isCategory && 
         <>
