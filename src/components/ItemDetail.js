@@ -1,20 +1,33 @@
-import React, {useContext, useState} from 'react'
+import React, {useContext, useState, useEffect} from 'react'
 import { Link } from 'react-router-dom';
 
 import { context } from '../context/CartContext';
 
 import ItemCount from './ItemCount';
+import NotificationsContainer from './NotificationsContainer';
 
 function ItemDetail({item}) {
 
-    const [stockAdded, setStockAdded] = useState(0);
-    const {addItem} = useContext(context);
+    const [notifications, setNotifications] = useState([]);
+    const {addItem, isInCart} = useContext(context);
+
+
+    let onCart = isInCart(item.id);
+    console.log('aqui');
 
     function onAdd(quantity){
-        //alert('ok');
-        setStockAdded(quantity);
         addItem(item, quantity);
+        setNotifications([{type: "green", content: "Producto agregado al carrito"}]);
     }
+
+    useEffect(() => {
+        const intervalId = setTimeout(() => {
+            setNotifications([]);
+        }, 4500);
+        return () => {
+          clearInterval(intervalId);
+        };
+    }, [notifications]);
 
   return (
     <>
@@ -30,25 +43,23 @@ function ItemDetail({item}) {
                         <div>Envío gratis a partir de $400.00</div>
                         <div className="flex flex-row gap-4 mb-4 justify-between items-end">
                             <div className="">
-                                <span className="text-green-800">{item.stock - stockAdded}</span> Piezas
+                                <span className="text-emerald-800">{item.stock}</span> Piezas
                             </div>
                             <div className='text-gray-900 text-2xl text-center'>
                                 ${item.price}
                             </div>
                         </div>
-                        { item.stock && stockAdded === 0 && <ItemCount stock={item.stock} initial={1} onAdd={onAdd} /> }
-                        { stockAdded > 0 && 
+                        { item.stock && !onCart && <ItemCount stock={item.stock} initial={1} onAdd={onAdd} /> }
+                        { onCart && 
                             <>
-                                <div className="bg-green-50 rounded-lg py-3 px-4 mb-4 text-base text-green-900 mb-3" role="alert">
-                                    Se agregaron {stockAdded} unidades
-                                </div>
-                                <Link to="/cart" className='block text-center text-base text-medium rounded-md bg-green-800 py-3 text-white hover:bg-green-600 hover:shadow-md duration-75'>Finalizar compra</Link>
+                                <Link to="/cart" className='block text-center text-base text-medium rounded-md bg-emerald-800 py-3 text-white hover:bg-emerald-600 hover:shadow-md duration-75'>Finalizar compra</Link>
                             </>
                         }
                     </div>
                 </div>
             </div>
         </div>
+        <NotificationsContainer notifications={notifications}></NotificationsContainer>
     </>
 
   )

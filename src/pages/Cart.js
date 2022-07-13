@@ -3,12 +3,16 @@ import React, {useContext} from 'react'
 import { XCircleIcon } from '@heroicons/react/outline'
 
 import { context } from '../context/CartContext';
+import { Link } from 'react-router-dom';
 
 function Cart() {
-  const { cart, clearCart, removeItem } = useContext(context);
+  const { cart, clearCart, removeItem, getSubtotal, getShipping, getTotal } = useContext(context);
+
   const subtotal = getSubtotal();
   const shipping = getShipping();
   const total = getTotal();
+
+  console.log("current cart")
   console.log(cart);
 
   const currencyFormatter = new Intl.NumberFormat('en-US', { style: 'currency', currency: "USD", minimumFractionDigits: 2 })
@@ -25,34 +29,11 @@ function Cart() {
     )
   });
 
-  // better to add on cartContext?
-  function getSubtotal(){
-    let t = 0;
-    cart.forEach(p => {
-      t += p.item.price * p.quantity;
-    });
-    return t;
-  }
-
-  function getShipping(){
-    let t = 0;
-    cart.forEach(p => {
-      t += p.item.price * p.quantity;
-    });
-    return t > 500 ? 0.00 : 120.00;
-  }
-
-  function getTotal(){
-    let t = 0;
-    cart.forEach(p => {
-      t += p.item.price * p.quantity;
-    });
-    return t > 500 ? t : t + 120;
-  }
-
   return (
     <div className='max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 py-3'>
-      { cart.length === 0 && <h3>El carrito no tiene productos</h3>}
+      { cart.length === 0 && 
+        <div className='text-slate-700 mt-6'>El carrito no tiene productos. <Link to='/' className='text-blue-900 font-bold ml-2'>Explorar</Link></div>
+      }
       { cart.length > 0 && 
         <div>
           <button onClick={() => clearCart()}  className="inline-block bg-white hover:bg-slate-200 text-slate-900 text-center px-3 py-2 rounded-md text-sm font-medium mb-5">

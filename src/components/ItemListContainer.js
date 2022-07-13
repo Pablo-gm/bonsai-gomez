@@ -10,42 +10,6 @@ function ItemListContainer(props) {
   const [loading, setLoading] = useState(true);
 
   const products = props.categoryId ? Constants.productsList.filter( item => item.category === props.categoryId ) : Constants.productsList;
-  /*
-  const products = [
-    {
-      name: "Hokkaido Verde",
-      description: "Arbol de Bonsai de la región de Hokkaido en Japón.",
-      image: "https://loremflickr.com/640/360",
-      stock: 12,
-      id: 1,
-      price: '500.00'
-    },
-    {
-      name: "Hokkaido Morado",
-      description: "Arbol de Bonsai de la región de Hokkaido en Japón.",
-      image: "https://loremflickr.com/640/360",
-      stock: 12,
-      id: 2,
-      price: '500.00'
-    },
-    {
-      name: "Hokkaido Rojo",
-      description: "Arbol de Bonsai de la región de Hokkaido en Japón.",
-      image: "https://loremflickr.com/640/360",
-      stock: 12,
-      id: 3,
-      price: '500.00'
-    },
-    {
-      name: "Hokkaido Gris",
-      description: "Arbol de Bonsai de la región de Hokkaido en Japón.",
-      image: "https://loremflickr.com/640/360",
-      stock: 12,
-      id: 4,
-      price: '500.00'
-    }
-  ]
-  */
 
   // Get al products from catalog (or const variables...)
   const getProducts = async () => {

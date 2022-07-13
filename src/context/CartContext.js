@@ -23,7 +23,6 @@ function CartContext({children, emptyCart = []}) {
         }else{
             setCart([...cart, {item, quantity}])
         }
-        console.log(cart);
     }
 
     function removeItem(id){
@@ -32,11 +31,38 @@ function CartContext({children, emptyCart = []}) {
     }
 
     function numberOfItems(){
-        return cart.length ? cart.length : 0;
+        let count = 0;
+        cart.forEach(item => count += item.quantity)
+        return count;
     }
 
+    function getSubtotal(){
+        let st = 0;
+        cart.forEach(p => {
+          st += p.item.price * p.quantity;
+        });
+        return st;
+      }
+    
+    function getShipping(){
+        let s = 0;
+        cart.forEach(p => {
+            s += p.item.price * p.quantity;
+        });
+        return s > 500 ? 0.00 : 120.00;
+    }
+
+    function getTotal(){
+        let t = 0;
+        cart.forEach(p => {
+            t += p.item.price * p.quantity;
+        });
+        return t > 500 ? t : t + 120;
+    }
+    
+
   return (
-    <context.Provider value={{cart, clearCart, isInCart, addItem, removeItem, numberOfItems}}>
+    <context.Provider value={{cart, clearCart, isInCart, addItem, removeItem, numberOfItems, getSubtotal, getShipping, getTotal}}>
         {children}
     </context.Provider>
   )
