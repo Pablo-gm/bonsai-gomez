@@ -21,7 +21,7 @@ function Cart() {
     return(
       <tr key={product.item.id}>
         <td className="text-center"><XCircleIcon className="inline-block h-8 w-8 text-red-500 cursor-pointer" onClick={() => removeItem(product.item.id) } /></td>
-        <td className="px-4 py-4 whitespace-nowrap text-slate-700">{product.item.name}</td>
+        <td className="px-4 py-4 whitespace-nowrap text-slate-700"><img src={product.item.imageUrl} alt={product.item.name} className="w-10 h-10 inline-block mr-2" /> {product.item.name}</td>
         <td className="px-4 py-4 whitespace-nowrap text-right text-slate-700">{currencyFormatter.format(product.item.price)}</td>
         <td className="px-4 py-4 whitespace-nowrap text-right text-slate-700">{product.quantity}</td>
         <td className="px-4 py-4 whitespace-nowrap text-right text-slate-700">{currencyFormatter.format(product.item.price * product.quantity)}</td>
@@ -54,9 +54,11 @@ function Cart() {
                     {productsList}
                   </tbody>
                   <tfoot className="bg-slate-700">
-                    <td></td>
-                    <td className="px-4 py-4 whitespace-nowrap text-slate-50" colSpan={3}>Subtotal</td>
-                    <td className="px-4 py-4 whitespace-nowrap text-right text-slate-50">{currencyFormatter.format(subtotal)}</td>
+                    <tr>
+                      <td></td>
+                      <td className="px-4 py-4 whitespace-nowrap text-slate-50" colSpan={3}>Subtotal</td>
+                      <td className="px-4 py-4 whitespace-nowrap text-right text-slate-50">{currencyFormatter.format(subtotal)}</td>
+                    </tr>
                   </tfoot>
                 </table>
               </div>

@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import ItemList from './ItemList';
 
+import { db } from "../firebase/firebase";
+import { getDocs, collection, query, where } from 'firebase/firestore';
+
 import * as Constants from "../constants/constants";
 
 function ItemListContainer(props) {
@@ -9,10 +12,11 @@ function ItemListContainer(props) {
   const [productItems, setProductItems] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  /*
   const products = props.categoryId ? Constants.productsList.filter( item => item.category === props.categoryId ) : Constants.productsList;
 
   // Get al products from catalog (or const variables...)
-  const getProducts = async () => {
+  const getAllProducts = async () => {
     return new Promise((resolve, reject) => {
       let t = setTimeout(() => {
         resolve(products);
@@ -30,6 +34,38 @@ function ItemListContainer(props) {
     .then(res => {
       console.log("Resolved: " + res);
       setProductItems(res);
+    }, err => {
+      console.log("Rejected: " + err);
+    })
+    .catch(err => console.log('Error: ' + err))
+    .finally(() => setLoading(false))
+  }, [props.categoryId]);
+
+  */
+
+  const getProducts = async () => {
+    const productsCollection = collection(db,'products');
+
+    if(props.categoryId){
+      const q = query(productsCollection, where('category', '==', props.categoryId))
+      return getDocs(q);
+    }
+
+    return getDocs(productsCollection);
+  }
+
+  // On mount, get products
+  React.useEffect(() => {
+    setLoading(true);
+    getProducts()
+    .then(res => {
+      console.log("Resolved: " + res);
+      const tempProducts = res.docs.map(
+        (product) => {
+          return { id: product.id, ...product.data() };
+        } 
+      )
+      setProductItems(tempProducts);
     }, err => {
       console.log("Rejected: " + err);
     })

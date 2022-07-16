@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 function Item({item}) {
   return (
     <div className="overflow-hidden rounded-xl bg-white shadow-md duration-200 hover:shadow-xl">
-        <img src={item.image} alt={item.name} className="h-auto w-full" />
+        <img src={item.imageUrl} alt={item.name} className="h-auto w-full" />
         <div className="p-5">
             <h5 className="text-gray-900 text-xl leading-tight font-bold">{item.name}</h5>
             <div className="flex flex-row gap-4 mb-4 justify-between items-end">

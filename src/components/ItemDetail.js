@@ -8,7 +8,7 @@ import NotificationsContainer from './NotificationsContainer';
 
 function ItemDetail({item}) {
 
-    const [notifications, setNotifications] = useState([]);
+    //const [notifications, setNotifications] = useState([]);
     const {addItem, isInCart} = useContext(context);
 
 
@@ -17,9 +17,10 @@ function ItemDetail({item}) {
 
     function onAdd(quantity){
         addItem(item, quantity);
-        setNotifications([{type: "green", content: "Producto agregado al carrito"}]);
+        //setNotifications([{type: "green", content: "Producto agregado al carrito"}]);
     }
 
+    /*
     useEffect(() => {
         const intervalId = setTimeout(() => {
             setNotifications([]);
@@ -28,12 +29,13 @@ function ItemDetail({item}) {
           clearInterval(intervalId);
         };
     }, [notifications]);
+    */
 
   return (
     <>
-        <div className="overflow-hidden rounded-xl bg-white shadow-md duration-200 hover:shadow-xl basis-full lg:basis-8/12 xl:basis-1/2">
-            <div className="flex flex-row">
-                <img src={item.image} alt={item.name} className="h-auto w-full basis-full lg:basis-96" />
+        <div className="overflow-hidden rounded-xl bg-white shadow-md duration-200 hover:shadow-xl md:basis-full sm:basis-96 lg:basis-8/12">
+            <div className="flex flex-col md:flex-row">
+                <img src={item.imageUrl} alt={item.name} className="h-auto w-full w-96 h-96" />
                 <div className="p-5 h-96 flex justify-between flex-col grow">
                     <div>
                         <h5 className="text-gray-900 text-xl leading-tight font-bold">{item.name}</h5>
@@ -59,7 +61,6 @@ function ItemDetail({item}) {
                 </div>
             </div>
         </div>
-        <NotificationsContainer notifications={notifications}></NotificationsContainer>
     </>
 
   )
