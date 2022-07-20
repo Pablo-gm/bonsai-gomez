@@ -1,9 +1,7 @@
-import React, {useContext} from 'react'
+import React from 'react'
 import Snackbar from './Snackbar';
 
 function NotificationsContainer({notifications}) {
-    const notificationsList = notifications;
-
     return (
         <div className='notifications-container'>
             {notifications.map((n) => {

@@ -1,11 +1,19 @@
-import React, {useContext} from 'react'
+import React, {useContext, useState} from 'react'
+
+import CheckoutForm from '../components/CheckoutForm';
 
 import { XCircleIcon } from '@heroicons/react/outline'
 
 import { context } from '../context/CartContext';
 import { Link } from 'react-router-dom';
 
+import { db } from "../firebase/firebase";
+import { addDoc, collection, serverTimestamp, writeBatch, query, where, getDocs, documentId, doc } from 'firebase/firestore';
+import NotificationsContainer from '../components/NotificationsContainer';
+
 function Cart() {
+  const [idOrder, setIdOrder] = useState('');
+
   const { cart, clearCart, removeItem, getSubtotal, getShipping, getTotal } = useContext(context);
 
   const subtotal = getSubtotal();
@@ -29,8 +37,60 @@ function Cart() {
     )
   });
 
+  const handleSubmit = async (buyer) => {
+    console.log(buyer);
+
+    const ordersCollection = collection(db,'orders')
+
+    // add new order to databse
+    const newOrder = {
+      buyer,
+      products: cart.map(product => ({ id: product.item.id, name: product.item.name, price: product.item.price, quantity: product.quantity, imageUrl: product.item.imageUrl })),
+      date: serverTimestamp(),
+      subtotal: subtotal,
+      shipping: shipping,
+      total: total
+    }
+
+    console.log(newOrder);
+
+    addDoc(ordersCollection, newOrder)
+    .then(({ id }) => setIdOrder(id))
+    .catch(err => console.log('Error: ' + err));
+
+    // Update products stocks
+    const batch = writeBatch(db);
+    const productsCollection = collection(db,'products');
+    //const q = query(productsCollection, where('id', 'in', cart.map(p => p.item.id)))
+    const q = query(productsCollection, where(documentId() , 'in', cart.map(p => p.item.id)));
+    
+    console.log("query");
+    console.log(q);
+
+    getDocs(q).then(res => {
+      console.log("Resolved: ");
+      console.log(res);
+      res.docs.forEach(
+        (snapshot) => {
+          const item = cart.find(product => snapshot.id === product.item.id);
+          console.log(snapshot.data());
+          console.log('item');
+          console.log(item);
+          batch.update(doc(db, 'products', snapshot.id), { stock: snapshot.data().stock - item.quantity });
+        }
+      )
+      batch.commit();
+      clearCart();
+    }, err => {
+      console.log("Rejected: " + err);
+    })
+    .catch(err => console.log('Error: ' + err))
+
+  }
+
   return (
     <div className='max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 py-3'>
+      { idOrder && <NotificationsContainer notifications={[{type: 'green', content: <p>Tu número de compra es: <strong>{idOrder}</strong></p>}]} ></NotificationsContainer>}
       { cart.length === 0 && 
         <div className='text-slate-700 mt-6'>El carrito no tiene productos. <Link to='/' className='text-blue-900 font-bold ml-2'>Explorar</Link></div>
       }
@@ -44,11 +104,13 @@ function Cart() {
               <div className="shadow overflow-x-auto border-b border-gray-200 rounded-lg mb-5">
                 <table className='table-auto min-w-full divide-y divide-gray-200'>
                   <thead className="bg-gray-50">
-                    <th className='px-4 py-2 w-16'></th>
-                    <th className='px-4 py-2 text-left text-slate-900'>Producto</th>
-                    <th className='px-4 py-2 text-right text-slate-900'>Precio</th>
-                    <th className='px-4 py-2 text-right text-slate-900'>Cantidad</th>
-                    <th className='px-4 py-2 text-right text-slate-900'>Total</th>
+                    <tr>
+                      <th className='px-4 py-2 w-16'></th>
+                      <th className='px-4 py-2 text-left text-slate-900'>Producto</th>
+                      <th className='px-4 py-2 text-right text-slate-900'>Precio</th>
+                      <th className='px-4 py-2 text-right text-slate-900'>Cantidad</th>
+                      <th className='px-4 py-2 text-right text-slate-900'>Total</th>
+                    </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
                     {productsList}
@@ -78,6 +140,7 @@ function Cart() {
                   <span className='font-semibold text-slate-900'>Total</span>
                   <span className="text-slate-700">{currencyFormatter.format(total)}</span>
                 </div>
+                <CheckoutForm onSubmitForm={handleSubmit}/>
               </div>
             </div>
           </div>

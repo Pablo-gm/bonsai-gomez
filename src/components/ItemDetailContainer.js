@@ -46,7 +46,7 @@ function ItemDetailContainer() {
     React.useEffect(() => {
         getItem()
         .then(res => {
-        console.log("Resolved: " + res);
+            console.log("Resolved: " + res);
             const tempProduct = res.exists() ? { id: res.id, ...res.data() } : {};
             setProductInfo(tempProduct);
         }, err => {

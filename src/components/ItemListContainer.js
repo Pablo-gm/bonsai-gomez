@@ -12,37 +12,6 @@ function ItemListContainer(props) {
   const [productItems, setProductItems] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  /*
-  const products = props.categoryId ? Constants.productsList.filter( item => item.category === props.categoryId ) : Constants.productsList;
-
-  // Get al products from catalog (or const variables...)
-  const getAllProducts = async () => {
-    return new Promise((resolve, reject) => {
-      let t = setTimeout(() => {
-        resolve(products);
-      }, 2000);
-      return () => {
-        clearTimeout(t);
-      }
-    });
-  };
-
-  // On mount, get products
-  React.useEffect(() => {
-    setLoading(true);
-    getProducts()
-    .then(res => {
-      console.log("Resolved: " + res);
-      setProductItems(res);
-    }, err => {
-      console.log("Rejected: " + err);
-    })
-    .catch(err => console.log('Error: ' + err))
-    .finally(() => setLoading(false))
-  }, [props.categoryId]);
-
-  */
-
   const getProducts = async () => {
     const productsCollection = collection(db,'products');
 
