@@ -68,5 +68,8 @@ Las entradas se crean automáticamente con la siguiente estructura:
 ```
 
 ## :camera: Previews
-Home component
-![Showing home component](/public/imgs/navigation/home.gif)
+Home
+![Home preview](/public/images/preview1.png)
+
+Item
+![Item preview](/public/images/preview2.png)
