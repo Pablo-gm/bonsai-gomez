@@ -4,15 +4,11 @@ import { ChevronRightIcon } from '@heroicons/react/outline'
 
 import ItemDetail from './ItemDetail'
 
-import * as Constants from "../constants/constants";
 import { db } from "../firebase/firebase";
 import { doc, getDoc, collection } from 'firebase/firestore';
 
 function ItemDetailContainer() {
     let params = useParams();
-
-    // hardcoded for now
-    // const itemInfo = params.id ? Constants.productsList.find( item => item.id.toString() === params.id ) : {};
 
     // Products to show
     const [productInfo, setProductInfo] = useState({});
@@ -20,21 +16,6 @@ function ItemDetailContainer() {
     // Loading message
     const [loading, setLoading] = useState(true);
 
-
-
-    // Get item info
-    /*
-    const getItem = async () => {
-        return new Promise((resolve, reject) => {
-        let t = setTimeout(() => {
-            resolve(itemInfo);
-        }, 2000);
-        return () => {
-            clearTimeout(t);
-        }
-        });
-    };
-    */
 
     const getItem = async () => {
         const productsCollection = collection(db,'products');
@@ -46,7 +27,6 @@ function ItemDetailContainer() {
     React.useEffect(() => {
         getItem()
         .then(res => {
-            console.log("Resolved: " + res);
             const tempProduct = res.exists() ? { id: res.id, ...res.data() } : {};
             setProductInfo(tempProduct);
         }, err => {

@@ -4,8 +4,6 @@ import ItemList from './ItemList';
 import { db } from "../firebase/firebase";
 import { getDocs, collection, query, where } from 'firebase/firestore';
 
-import * as Constants from "../constants/constants";
-
 function ItemListContainer(props) {
 
   // Products to show

@@ -20,9 +20,6 @@ function Cart() {
   const shipping = getShipping();
   const total = getTotal();
 
-  console.log("current cart")
-  console.log(cart);
-
   const currencyFormatter = new Intl.NumberFormat('en-US', { style: 'currency', currency: "USD", minimumFractionDigits: 2 })
 
   const productsList = cart.map((product) =>{
@@ -38,7 +35,6 @@ function Cart() {
   });
 
   const handleSubmit = async (buyer) => {
-    console.log(buyer);
 
     const ordersCollection = collection(db,'orders')
 
@@ -52,8 +48,6 @@ function Cart() {
       total: total
     }
 
-    console.log(newOrder);
-
     addDoc(ordersCollection, newOrder)
     .then(({ id }) => setIdOrder(id))
     .catch(err => console.log('Error: ' + err));
@@ -61,21 +55,12 @@ function Cart() {
     // Update products stocks
     const batch = writeBatch(db);
     const productsCollection = collection(db,'products');
-    //const q = query(productsCollection, where('id', 'in', cart.map(p => p.item.id)))
     const q = query(productsCollection, where(documentId() , 'in', cart.map(p => p.item.id)));
     
-    console.log("query");
-    console.log(q);
-
     getDocs(q).then(res => {
-      console.log("Resolved: ");
-      console.log(res);
       res.docs.forEach(
         (snapshot) => {
           const item = cart.find(product => snapshot.id === product.item.id);
-          console.log(snapshot.data());
-          console.log('item');
-          console.log(item);
           batch.update(doc(db, 'products', snapshot.id), { stock: snapshot.data().stock - item.quantity });
         }
       )

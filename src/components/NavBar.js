@@ -9,18 +9,20 @@ import { MenuIcon, XIcon } from '@heroicons/react/outline'
 
 import { NavLink } from "react-router-dom";
 
-const navigation = [
-  { name: 'Inicio', href: '/', current: true },
-  { name: 'Bonsai', href: '/category/bonsai', current: false },
-  { name: 'Novedades', href: '/category/novedades', current: false },
-  { name: 'Herramientas', href: '/category/herramientas', current: false },
-  { name: 'Complementos', href: '/category/complementos', current: false },
-]
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
-function NavBar() {
+
+function NavBar({categoryLinks}) {
+  const navigation = [
+    { name: 'Inicio', href: '/', current: true },
+  ]
+
+  categoryLinks.forEach(l => {
+    navigation.push({name: l.name, href: `/category/${l.key}`})
+  });
+
   return (
     <Disclosure as="nav" className="bg-white">
       {({ open }) => (
@@ -40,20 +42,9 @@ function NavBar() {
               </div>
               <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex-shrink-0 flex items-center">
-                  <NavLink
-                      key='logo'
-                      to='/'
-                  >
-                    <img
-                      className="block lg:hidden h-8 w-auto"
-                      src={MobileLogo}
-                      alt="Bonsai Logo Mobile"
-                    />
-                    <img
-                      className="hidden lg:block h-8 w-auto"
-                      src={Logo}
-                      alt="Bonsai Logo"
-                    />
+                  <NavLink key='logo' to='/' >
+                    <img className="block lg:hidden h-8 w-auto" src={MobileLogo} alt="Bonsai Logo Mobile" />
+                    <img className="hidden lg:block h-8 w-auto" src={Logo} alt="Bonsai Logo" />
                   </NavLink>
 
                 </div>

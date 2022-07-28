@@ -9,6 +9,7 @@ function CheckoutForm({onSubmitForm}) {
         confirmEmail: '',
         deliveryAddress: ''
     })
+    
     const [errors, setErrors] = useState({})
 
     const handleInput = (e) => {

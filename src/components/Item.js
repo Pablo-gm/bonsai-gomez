@@ -9,7 +9,7 @@ function Item({item}) {
             <h5 className="text-gray-900 text-xl leading-tight font-bold">{item.name}</h5>
             <div className="flex flex-row gap-4 mb-4 justify-between items-end">
                 <div className="">
-                    <span className="text-emerald-800">{item.stock}</span> Piezas
+                    <span className="text-emerald-800">{item.stock}</span> Piezas disponibles
                 </div>
                 <div className='text-gray-900 text-2xl text-center'>
                     ${item.price}

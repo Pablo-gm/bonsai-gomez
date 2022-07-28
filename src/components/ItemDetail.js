@@ -4,32 +4,18 @@ import { Link } from 'react-router-dom';
 import { context } from '../context/CartContext';
 
 import ItemCount from './ItemCount';
-import NotificationsContainer from './NotificationsContainer';
 
 function ItemDetail({item}) {
 
-    //const [notifications, setNotifications] = useState([]);
     const {addItem, isInCart} = useContext(context);
 
 
     let onCart = isInCart(item.id);
-    console.log('aqui');
 
     function onAdd(quantity){
         addItem(item, quantity);
-        //setNotifications([{type: "green", content: "Producto agregado al carrito"}]);
     }
 
-    /*
-    useEffect(() => {
-        const intervalId = setTimeout(() => {
-            setNotifications([]);
-        }, 4500);
-        return () => {
-          clearInterval(intervalId);
-        };
-    }, [notifications]);
-    */
 
   return (
     <>
@@ -51,10 +37,10 @@ function ItemDetail({item}) {
                                 ${item.price}
                             </div>
                         </div>
-                        { item.stock && !onCart && <ItemCount stock={item.stock} initial={1} onAdd={onAdd} /> }
+                        { item.stock && <ItemCount stock={item.stock} initial={1} onAdd={onAdd} /> }
                         { onCart && 
                             <>
-                                <Link to="/cart" className='block text-center text-base text-medium rounded-md bg-emerald-800 py-3 text-white hover:bg-emerald-600 hover:shadow-md duration-75'>Finalizar compra</Link>
+                                <Link to="/cart" className='block text-center text-base text-medium rounded-md bg-emerald-800 py-3 mt-6 text-white hover:bg-emerald-600 hover:shadow-md duration-75'>Finalizar compra</Link>
                             </>
                         }
                     </div>

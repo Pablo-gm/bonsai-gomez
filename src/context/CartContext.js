@@ -19,7 +19,13 @@ function CartContext({children, emptyCart = []}) {
 
     function addItem(item, quantity){
         if(isInCart(item.id)){
-            console.log("already in cart");
+            const newCart = cart.map( (i) =>{
+                if(i.item.id == item.id ){
+                    return {...i, quantity: i.quantity + quantity};
+                }
+                return i;
+            });
+            setCart(newCart)
         }else{
             setCart([...cart, {item, quantity}])
         }

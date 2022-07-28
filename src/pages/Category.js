@@ -3,15 +3,14 @@ import { useParams, Link } from "react-router-dom";
 
 import ItemListContainer from "../components/ItemListContainer";
 
-import * as Constants from "../constants/constants"
+function Category({availableCategories}) {
 
-function Category() {
   let params = useParams();
-  let isCategory = Constants.productCategories.includes(params.id);
+  let isCategory = availableCategories.find(i => i.key == params.id);
 
   useEffect(() => {
     console.log(params.id)
-    if( Constants.productCategories.includes(params.id)){
+    if( availableCategories.find(i => i.key == params.id)){
       isCategory = true;
     }
   }, [params.id]);
