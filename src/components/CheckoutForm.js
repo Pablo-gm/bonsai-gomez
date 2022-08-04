@@ -61,27 +61,27 @@ function CheckoutForm({onSubmitForm}) {
         <div className="mb-4">
             <label htmlFor="name" className="block mb-2 text-sm font-medium text-slate-900 dark:text-slate-300">Tu nombre</label>
             <input type="text" id="name" name="name" onChange={handleInput} value={buyer.name} className="bg-slate-50 border-2 border-slate-300 text-slate-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2 outline-none"  />
-            { errors.name && <div className='text-red-500'>{errors.name}</div>}
+            { errors.name ? <div className='text-red-500'>{errors.name}</div> : null}
         </div>
         <div className="mb-4">
             <label htmlFor="telephone" className="block mb-2 text-sm font-medium text-slate-900 dark:text-slate-300">Tu teléfono</label>
             <input type="text" id="telephone" name="telephone" onChange={handleInput} value={buyer.phone} className="bg-slate-50 border-2 border-slate-300 text-slate-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2 outline-none"  />
-            { errors.telephone && <div className='text-red-500'>{errors.telephone}</div>}
+            { errors.telephone ? <div className='text-red-500'>{errors.telephone}</div> : null}
         </div>
         <div className="mb-4">
             <label htmlFor="deliveryAddress" className="block mb-2 text-sm font-medium text-slate-900 dark:text-slate-300">Tu domicilio</label>
             <input type="text" id="deliveryAddress" name="deliveryAddress" onChange={handleInput} value={buyer.deliveryAddress} className="bg-slate-50 border-2 border-slate-300 text-slate-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2 outline-none"  />
-            { errors.deliveryAddress && <div className='text-red-500'>{errors.deliveryAddress}</div>}
+            { errors.deliveryAddress ? <div className='text-red-500'>{errors.deliveryAddress}</div> : null}
         </div>
         <div className="mb-4">
             <label htmlFor="email" className="block mb-2 text-sm font-medium text-slate-900 dark:text-slate-300">Tu correo</label>
             <input type="email" id="email" name="email" onChange={handleInput} value={buyer.email} className="bg-slate-50 border-2 border-slate-300 text-slate-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2 outline-none"  />
-            { errors.email && <div className='text-red-500'>{errors.email}</div>}
+            { errors.email ? <div className='text-red-500'>{errors.email}</div> : null}
         </div>
         <div className="mb-4">
             <label htmlFor="confirmEmail" className="block mb-2 text-sm font-medium text-slate-900 dark:text-slate-300">Confirma tu correo</label>
             <input type="email" id="confirmEmail" name="confirmEmail" onChange={handleInput} value={buyer.confirmEmail} className="bg-slate-50 border-2 border-slate-300 text-slate-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2 outline-none"  />
-            { errors.confirmEmail && <div className='text-red-500'>{errors.confirmEmail}</div>}
+            { errors.confirmEmail ? <div className='text-red-500'>{errors.confirmEmail}</div> : null}
         </div>
         <button type="submit" className="w-full text-base text-medium rounded-md bg-emerald-800 py-3 text-white hover:bg-emerald-600 hover:shadow-md duration-75">Comprar</button>
     </form>

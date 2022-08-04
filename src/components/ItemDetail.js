@@ -37,12 +37,8 @@ function ItemDetail({item}) {
                                 ${item.price}
                             </div>
                         </div>
-                        { item.stock && <ItemCount stock={item.stock} initial={1} onAdd={onAdd} /> }
-                        { onCart && 
-                            <>
-                                <Link to="/cart" className='block text-center text-base text-medium rounded-md bg-emerald-800 py-3 mt-6 text-white hover:bg-emerald-600 hover:shadow-md duration-75'>Finalizar compra</Link>
-                            </>
-                        }
+                        { item.stock ? <ItemCount stock={item.stock} initial={1} onAdd={onAdd} /> : null}
+                        { onCart ? <Link to="/cart" className='block text-center text-base text-medium rounded-md bg-emerald-800 py-3 mt-6 text-white hover:bg-emerald-600 hover:shadow-md duration-75'>Finalizar compra</Link> : null }
                     </div>
                 </div>
             </div>

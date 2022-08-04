@@ -17,8 +17,8 @@ function Category({availableCategories}) {
 
   return (
     <>
-      {isCategory && <ItemListContainer greeting={params.id} categoryId={params.id}/> }
-      {!isCategory && 
+      {isCategory ? <ItemListContainer greeting={params.id} categoryId={params.id}/> : null}
+      {!isCategory ? 
         <>
           <h1 className="text-center text-5xl mt-16 text-slate-800 mb-5">{`No hay productos bajo la categoría ${params.id}`}</h1>
           <div className="text-center mt-8">
@@ -26,8 +26,8 @@ function Category({availableCategories}) {
               Regresar
             </Link>
           </div>
-
         </>
+        : null
       }
        
     </>

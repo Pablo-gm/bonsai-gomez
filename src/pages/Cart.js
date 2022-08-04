@@ -75,11 +75,12 @@ function Cart() {
 
   return (
     <div className='max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 py-3'>
-      { idOrder && <NotificationsContainer notifications={[{type: 'green', content: <p>Tu número de compra es: <strong>{idOrder}</strong></p>}]} ></NotificationsContainer>}
-      { cart.length === 0 && 
+      { idOrder ? <NotificationsContainer notifications={[{type: 'green', content: <p>Tu número de compra es: <strong>{idOrder}</strong></p>}]} ></NotificationsContainer> : null}
+      { cart.length === 0 ? 
         <div className='text-slate-700 mt-6'>El carrito no tiene productos. <Link to='/' className='text-blue-900 font-bold ml-2'>Explorar</Link></div>
+        : null
       }
-      { cart.length > 0 && 
+      { cart.length > 0 ? 
         <div>
           <button onClick={() => clearCart()}  className="inline-block bg-white hover:bg-slate-200 text-slate-900 text-center px-3 py-2 rounded-md text-sm font-medium mb-5">
             Vaciar carrito
@@ -131,6 +132,7 @@ function Cart() {
           </div>
 
         </div>
+        : null
       }
     </div>
   )

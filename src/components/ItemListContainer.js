@@ -44,7 +44,7 @@ function ItemListContainer(props) {
   return (
     <>
       {loading ? <h5>Loading...</h5> : <h1 className="text-center text-5xl mt-16 text-slate-800 mb-5">{props.greeting}</h1>}
-      { productItems && <ItemList items={productItems} />}
+      { productItems ? <ItemList items={productItems} /> : null}
     </>
   )
 }
